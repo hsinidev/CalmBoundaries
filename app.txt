@@ -1,0 +1,24 @@
+﻿App Name: CalmBoundaries
+Version: 1.0.0
+Platform: Android / iOS
+Category: Digital Wellness / Screen Time
+Target Market: Global
+Price Model: Free + $5.99/month Pro
+
+Description:
+A smart screen-time blocker that turns lockouts into interactive micro-breathing or stretching mini-games that users must complete before accessing distracting apps.
+
+Key Features:
+- Select apps to block (social media, games, news)
+- Set block schedules (morning focus hours, work hours)
+- When attempting to open blocked app: must complete a micro-activity
+- Micro-activities: 4-7-8 breathing exercise, 30-second stretch, 10 jumping jacks count
+- Activity difficulty scales with how many times you've tried to bypass today
+- Block streak rewards for successful days
+- Weekly screen time reduction stats
+- Emergency unlock (limited per day, requires typing reason)
+- Focus sessions: block all at once for deep work periods
+
+Target Audience: People fighting social media addiction, productivity seekers, parents for teens
+Competitors: Digital Wellbeing, Freedom, AppBlock, One Sec
+Unique Value: Replaces mindless app-opening with a mindful micro-practice instead of hard blocking

@@ -1,0 +1,138 @@
+﻿{
+  "prompt_metadata": {
+    "app_name": "CalmBoundaries - Smart Screen-Time Blocker & Mindfulness Catalyst",
+    "tagline": "Transform screen-time friction into immediate mental restoration.",
+    "target_platform": "Android (Kotlin + Jetpack Compose)",
+    "language": "Kotlin",
+    "ui_framework": "Jetpack Compose (Material Design 3)",
+    "architecture_pattern": "MVVM + Clean Architecture + MVI for Overlay & Block States",
+    "build_system": "Gradle Kotlin DSL (Version Catalogs)",
+    "min_sdk": 26,
+    "target_sdk": 34,
+    "category": "Digital Wellness / Screen Time / Productivity",
+    "monetization": "Hybrid: Free (Block up to 3 apps, standard breathing games + AdMob Banner/Interstitial Ads) | Premium Pro ($5.99/mo or $29.99 lifetime to unlock unlimited app blocks, custom-built kinetic stretching mini-games, advanced cognitive analytics, and an ad-free flow)"
+  },
+  "agent_instructions": {
+    "role": "You are a Principal Android System Integration and Graphics Engineer. Your goal is to design 'CalmBoundaries', a highly performant, rock-solid screen-time locker that replaces sudden, frustrating app-blocks with beautifully animated, interactive mindfulness interventions (micro-breathing pacer & sensor-verified stretching) rendered dynamically on top of blacklisted targets.",
+    "design_philosophy": "Friction as a mindful transition. The blocking overlay must intercept targets with near-zero latency, transitioning into a calming, organic canvas. The UI must leverage warm, meditative color palettes, smooth spring physics, and gentle, fluid shapes to de-escalate digital impulses rather than provoke anger.",
+    "code_standards": [
+      "Strict separation of layers using Clean Architecture principles combined with Domain-Driven Design (DDD) boundaries.",
+      "Reactive presentation layer driven by unidirectional data flow (MVI) and StateFlows to safely orchestrate lock states and interactive sensory feedback.",
+      "Low-overhead background tracking using a combination of AccessibilityService (for real-time, low-latency app launch detection) and UsageStatsManager (as a highly efficient fallback).",
+      "Dynamic system overlay generation using custom WindowManager configurations hosting declarative Jetpack Compose views.",
+      "Optimal memory management ensuring the overlay surface allocations are recycled immediately upon completion of the wellness mini-game."
+    ]
+  },
+  "product_specification": {
+    "core_mechanics": {
+      "app_interception_engine": {
+        "description": "High-fidelity, low-latency app tracking system running in a persistent background architecture.",
+        "accessibility_service": "Implement an AccessibilityService monitoring TYPE_WINDOW_STATE_CHANGED events to immediately query the foreground package name within <10ms.",
+        "usage_stats_fallback": "A backup background tracking system utilizing Android's UsageStatsManager polling at 500ms intervals when accessibility is disabled."
+      },
+      "system_window_overlay": {
+        "description": "Draw the blocking layer securely over designated blacklisted target apps.",
+        "implementation": "Programmatically inject a custom overlay layout using the system WindowManager with flags TYPE_APPLICATION_OVERLAY, FLAG_NOT_TOUCH_MODAL, and FLAG_LAYOUT_IN_SCREEN. Embed a ComposeView into the WindowManager context to draw custom material canvas components natively over foreground apps."
+      },
+      "wellness_mini_games": {
+        "breathing_pacer_canvas": {
+          "description": "An interactive, custom-drawn breathing visualizer mapped to a sinus-curve breathing scale.",
+          "interaction": "Users must press and hold a pulsing circular canvas element, matching their touch to an expanding/contracting circle representing an deep inhalation/exhalation cycle (e.g., 4s-4s-4s-4s Box Breathing)."
+        },
+        "sensor_verified_stretches": {
+          "description": "Kinetic stretching breaks using device hardware sensors.",
+          "interaction": "Instruct the user to complete a basic posture stretch (e.g., side neck stretch or wrist rotation) using Android's SensorManager to read Sensor.TYPE_ACCELEROMETER and Sensor.TYPE_GYROSCOPE metrics, validating physical movement threshold shifts before unlocking the target app."
+        }
+      },
+      "analytics_and_progress_dashboard": {
+        "description": "Visualize focus trends and successful mindful micro-interventions.",
+        "charts": "Custom Compose Canvas charts detailing blocked attempts intercepted, average heart-rate decompression estimates, and consecutive-day wellness streaks."
+      },
+      "admob_monetization_layer": {
+        "banner_ads": "Collapsible smart banners integrated at the bottom of the Statistics Dashboard and Configuration panels (suppressed in Pro).",
+        "interstitial_ads": "Triggered gracefully after completing a wellness mini-game but before opening the target app (enforced with a 15-minute cooldown timer).",
+        "rewarded_ads": "Watch a video ad to earn a 'Free Pass' allowing direct entry into any blocked app without completing the mini-game for the next 2 hours.",
+        "consent_platform": "Integrate the Google User Messaging Platform (UMP) SDK to handle fully compliant international GDPR and ePrivacy consent loops."
+      }
+    }
+  },
+  "technical_specification": {
+    "key_permissions": [
+      "android.permission.SYSTEM_ALERT_WINDOW (Essential for drawing blocking overlays over external applications)",
+      "android.permission.PACKAGE_USAGE_STATS (Required for tracking foreground package transitions if Accessibility is offline)",
+      "android.permission.BIND_ACCESSIBILITY_SERVICE (Crucial for high-speed, instant app block triggering)",
+      "android.permission.FOREGROUND_SERVICE (Required to maintain persistent app blocking states under SDK 33-34 rules)",
+      "android.permission.POST_NOTIFICATIONS (To fire daily mindfulness prompts and notification logs)",
+      "android.permission.INTERNET (For processing Google Play Billing, loading AdMob ads, and syncing databases)"
+    ],
+    "module_architecture": {
+      "app": "Application initialization, Hilt module graphs, dynamic provider bindings.",
+      "core_ui": "Wellness design tokens (Warm Sand, Soft Sage, Earth Terracotta), custom path interpolators, and physical spring animations.",
+      "feature_blocker": "AccessibilityService binder, UsageStats crawler, WindowManager overlay controller, and target blacklist repository.",
+      "feature_wellness": "Sensor listener hooks, accelerometer change vector calculators, custom breathing pacer canvas, and unlock listeners.",
+      "feature_stats": "Custom canvas charts (splines, bar charts, streak calendars), focus metrics, and historical logs.",
+      "feature_pro": "Google Play Billing 6.x repository, subscription verification logic, dynamic comparison tables, and paywall layouts."
+    },
+    "state_management_details": {
+      "blocker_state_machine": {
+        "state_model": "data class BlockerState(val blacklistedApps: List, val activeTargetPackage: String?, val isOverlayActive: Boolean, val wellnessStage: WellnessStage, val sensorMovementDelta: Float, val isPro: Boolean)",
+        "wellness_stage": "enum class WellnessStage { IDLE, BREATHING, STRETCHING, VALIDATING, ACCESS_GRANTED }"
+      }
+    },
+    "core_dependencies": {
+      "jetpack_compose": "androidx.compose.ui:ui:1.6.x (including foundation, material3, and dynamic graphic animations)",
+      "database_orm": "androidx.room:room-runtime:2.6.x & room-compiler (supporting Coroutines/Flow queries)",
+      "dependency_injection": "com.google.dagger:hilt-android:2.51 & hilt-navigation-compose",
+      "data_caching": "androidx.datastore:datastore-preferences:1.0.x (For fast, lightweight target lists)",
+      "background_runtime": "androidx.work:work-runtime-ktx:2.9.x",
+      "billing": "com.android.billingclient:billing-ktx:6.2.0 (Google Play Billing Engine)",
+      "monetization": "com.google.android.gms:play-services-ads:23.x.x (AdMob SDK)",
+      "consent_sdk": "com.google.android.ump:user-messaging-platform:2.2.x (User Consent Collection)"
+    },
+    "ui_ux_design": {
+      "theme_color_palette": {
+        "primary": "#2D6A4F (Calming Forest Green - represents deep breathing)",
+        "secondary": "#D8F3DC (Warm Sage White - representing soft space)",
+        "accent": "#FF9F1C (Sunset Orange - used for active physical sensor tracking loops)",
+        "background": "#FDFBF7 (Warm Cream/Sand - designed to avoid visual anxiety)",
+        "surface": "#FFFFFF (Pure White)",
+        "on_background": "#1A2521 (Deep Spruce Charcoal)"
+      },
+      "design_notes": "Sleek Dark Wellness mode is available ('background': '#0E1412', 'surface': '#18221E', 'on_surface': '#ECEFF1'). Animations must use spring-based physical interpolations to replicate standard therapeutic biofeedback systems."
+    }
+  },
+  "execution_roadmap": [
+    {
+      "phase_1": "Architecture Scaffolding & Shared Data Layer",
+      "description": "Establish multi-module structure utilizing clean architecture guidelines. Scaffold Hilt containers, set up Kotlin Version Catalogs, prepare Type-Safe Compose Navigation routes, and initialize Room schema structures to record block events, user history, and streaks."
+    },
+    {
+      "phase_2": "Low-Latency App Interception Engine",
+      "description": "Implement the AccessibilityService binder tracking package change events. Secure the fallback UsageStatsManager engine. Set up local datastores containing user-defined app blacklists."
+    },
+    {
+      "phase_3": "System WindowOverlay Integration",
+      "description": "Develop low-level code calling the system WindowManager overlay configuration rules. Package custom Compose content securely within the injected WindowManager frame, ensuring physical hardware home keys are managed correctly."
+    },
+    {
+      "phase_4": "Interactive Custom Breathing Game Canvas",
+      "description": "Construct the interactive box-breathing graphic canvas in Compose. Implement gesture pointer tracking to register touch events matched against sine-curve progress arrays."
+    },
+    {
+      "phase_5": "Sensor-Driven Physical Stretching Engine",
+      "description": "Hook into Android's SensorManager. Listen to raw coordinate changes via Sensor.TYPE_ACCELEROMETER and Sensor.TYPE_GYROSCOPE, build spatial distance delta equations, and provide visual feedback as users complete movements."
+    },
+    {
+      "phase_6": "AdMob SDK & GDPR Consent Framework",
+      "description": "Initialize the Google User Messaging Platform (UMP) SDK. Construct modular Compose container overlays to request location/privacy consent loops before initializing the AdMob SDK. Inject responsive Anchor adaptive Banners and custom-capped Interstitial triggers."
+    },
+    {
+      "phase_7": "Google Play Billing 6.x Premium Paywall",
+      "description": "Build the Google Play Billing subscription repository. Construct a modern, visually striking Pro Paywall featuring dynamic cards, comparison grids, and spring transition animations that bypasses AdMob overlays upon transaction validation."
+    },
+    {
+      "phase_8": "Performance Tuning, Memory Recycling & Production Launch",
+      "description": "Measure latency during foreground app intercepts. Profile resource clean-up behavior when overlays close. Generate home-screen Glance dashboard widgets, run UI automation test scripts, and build the signed production release bundle."
+    }
+  ]
+}
